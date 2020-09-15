@@ -1,0 +1,8 @@
+Se instalan las dependencias 
+npm i express dotenv
+
+Se instalan las dependencias de desarrollo
+npm i -D nodemon eslint eslint-config-prettier eslint-plugin-prettier prettier
+
+se instala hook para el formateo del codigo
+npx mrm lint-staged

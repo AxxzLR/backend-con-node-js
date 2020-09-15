@@ -1,0 +1,4 @@
+db_user_platzivideos
+f3D209VdaElzUDW8
+
+mongodb+srv://db_user_platzivideos:f3D209VdaElzUDW8@cluster0.j0tad.mongodb.net/test
