@@ -4,6 +4,9 @@ const MoviesService = require("../services/movies")
 const validationHandler = require('../utils/middleware/validationHandler')
 const { movieIDSchema, createMovieSchema, updateMovieSchema } = require('../utils/middleware/schemas/movies')
 
+const cacheResponse = require('../utils/cacheResponse')
+const { FIVE_MINUTES_IN_SECONDS, SIXTY_MINUTES_IN_SECONDS } = require('../utils/time')
+
 function moviesApi(app) {
     const router = express.Router()
     app.use("/api/movies", router)
@@ -12,6 +15,7 @@ function moviesApi(app) {
 
     router.get("/", async function (req, res, next) {
         try {
+            cacheResponse(res, FIVE_MINUTES_IN_SECONDS)
             const { tags } = req.query //Recupera los parametros del querystring (?Hello=World) como un objeto
             const movies = await moviesService.getMovies({ tags })
 
@@ -30,6 +34,7 @@ function moviesApi(app) {
 
     router.get("/:movieID", validationHandler({ movieID: movieIDSchema }, 'params'), async function (req, res, next) {
         try {
+            cacheResponse(res, SIXTY_MINUTES_IN_SECONDS)
             const { movieID } = req.params
             const movie = await moviesService.getMovie({ movieID })
             res
